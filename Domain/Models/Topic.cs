@@ -1,6 +1,3 @@
-using Domain.Abstractions;
-using Domain.ValueObjects;
-
 namespace Domain.Models;
 
 public class Topic : Entity<TopicId>
