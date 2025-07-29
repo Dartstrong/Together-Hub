@@ -1,18 +1,20 @@
-namespace Domain.ValueObjects;
-
-public record TopicId
+namespace Domain.ValueObjects
 {
-    public Guid Value { get; }
-    private TopicId(Guid value)
+    public record TopicId
     {
-        this.Value = value;
-    }
-    public static TopicId Of(Guid value)
-    {
-        if (value == Guid.Empty)
+        public Guid Value { get; }
+        private TopicId(Guid value)
         {
-            throw new DomainException("TopicId can't be empty");
+            this.Value = value;
         }
-        return new TopicId(value);
+        public static TopicId Of(Guid value)
+        {
+            if (value == Guid.Empty)
+            {
+                throw new DomainException("TopicId can't be empty");
+            }
+            return new TopicId(value);
+        }
     }
 }
+
