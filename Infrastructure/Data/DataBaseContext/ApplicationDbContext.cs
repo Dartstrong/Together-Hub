@@ -1,7 +1,5 @@
 ﻿using Application.Data.DataBaseContext;
-using Domain.Models;
-using Domain.ValueObjects;
-using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace Infrastructure.Data.DataBaseContext
 {
@@ -11,19 +9,9 @@ namespace Infrastructure.Data.DataBaseContext
         public ApplicationDbContext(DbContextOptions options) : base(options) { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Topic>()
-                .Property(topic => topic.Id)
-                .HasConversion(
-                    id => id.Value,
-                    value => TopicId.Of(value));
+            base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Topic>()
-                .OwnsOne(topic => topic.Location, location =>
-                {
-                    location.Property(l => l.Country).HasColumnName("Country");
-                    location.Property(l => l.City).HasColumnName("City");
-                    location.Property(l => l.Street).HasColumnName("Street");
-                });
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
 }

@@ -1,7 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Infrastructure.Data.DataBaseContext;
 using Microsoft.AspNetCore.Builder;
-using Infrastructure.Data.DataBaseContext;
-using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data.Extensions
 {
