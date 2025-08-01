@@ -1,13 +1,13 @@
-﻿using Domain.ValueObjects;
+﻿using Application.Dtos;
 
 namespace Application.Topics
 {
    public interface ITopicsService
    {
-        Task<List<Topic>> GetTopicsAsync();
-        Task<Topic> GetTopicAsync(TopicId id);
-        Task<Topic> CreateTopicAsync(Topic topicRequestDto);
-        Task<Topic> UpdateTopicAsync(TopicId id, Topic topicRequestDto);
-        Task DeleteTopicAsync(TopicId id);
+        Task<List<TopicResponseDto>> GetTopicsAsync(CancellationToken cancellationToken);
+        Task<TopicResponseDto> GetTopicAsync(Guid id);
+        Task<TopicResponseDto> CreateTopicAsync(Topic topicRequestDto);
+        Task<TopicResponseDto> UpdateTopicAsync(Guid id, Topic topicRequestDto);
+        Task DeleteTopicAsync(Guid id);
    }
 }
