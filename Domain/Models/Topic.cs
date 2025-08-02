@@ -8,7 +8,7 @@ namespace Domain.Models
         public string TopicType { get; set; } = default!;
         public Location Location { get; set; } = default!;
         public static Topic Create(
-            TopicId id, string title, DateTime eventStart,
+            TopicId id, string title, DateTime? eventStart,
             string summary, string topicType, Location location)
         {
             ArgumentException.ThrowIfNullOrWhiteSpace(title);

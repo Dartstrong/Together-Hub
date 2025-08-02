@@ -1,4 +1,6 @@
-﻿namespace Api
+﻿using Api.Exceptions.Handler;
+
+namespace Api
 {
     public static class DependencyInjection
     {
@@ -6,8 +8,19 @@
             this IServiceCollection services,
             IConfiguration configuration)
         {
+            services.AddExceptionHandler<CustomExceptionHandler>();
             services.AddControllers();
             services.AddOpenApi();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("react-policy", policy =>
+                {
+                    policy.AllowAnyHeader()
+                          .AllowAnyMethod()
+                          .WithOrigins("http://localhost:3000");
+                });
+            });
 
             return services;
         }
@@ -15,6 +28,14 @@
         public static WebApplication UseApiServices(
             this WebApplication app)
         {
+            app.UseCors("react-policy");
+
+            if (app.Environment.IsDevelopment())
+            {
+                app.MapOpenApi();
+            }
+
+            app.UseExceptionHandler(options => { });
             app.UseHttpsRedirection();
             app.UseAuthorization();
             app.MapControllers();

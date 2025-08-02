@@ -3,5 +3,6 @@
     public interface IApplicationDbContext
     {
         DbSet<Topic> Topics { get;}
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

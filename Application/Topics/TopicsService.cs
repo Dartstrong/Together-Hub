@@ -1,6 +1,4 @@
 ﻿using Application.Data.DataBaseContext;
-using Application.Dtos;
-using Application.Extensions;
 using Microsoft.Extensions.Logging;
 
 namespace Application.Topics
@@ -8,50 +6,82 @@ namespace Application.Topics
     public class TopicsService(IApplicationDbContext dbContext,
         ILogger<TopicsService> logger) : ITopicsService
     {
-        public Task<TopicResponseDto> CreateTopicAsync(Topic topicRequestDto)
+        public async Task<TopicResponseDto> CreateTopicAsync(CreateTopicDto createTopicDto, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            Topic topic = Topic.Create(
+                TopicId.Of(Guid.NewGuid()),
+                createTopicDto.Title,
+                createTopicDto.EventStart,
+                createTopicDto.Summary,
+                createTopicDto.TopicType,
+                Location.Of(createTopicDto.Location.Country, 
+                    createTopicDto.Location.City,
+                    createTopicDto.Location.Street)
+                );
+            
+            dbContext.Topics.Add(topic);
+
+            await dbContext.SaveChangesAsync(cancellationToken);
+
+            return topic.ToTopicResponseDto();
         }
 
-        public Task DeleteTopicAsync(Guid id)
+        public async Task DeleteTopicAsync(Guid id, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            TopicId topicId = TopicId.Of(id);
+
+            var topic = await dbContext.Topics.FindAsync([topicId], cancellationToken);
+
+            if (topic is null || topic.IsDeleted) throw new TopicNotFoundException(id);
+
+            topic.IsDeleted  = true;
+            topic.DeleteAt = DateTimeOffset.UtcNow;
+
+            //dbContext.Topics.Remove(topic);
+
+            await dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public Task<TopicResponseDto> GetTopicAsync(Guid id)
+        public async Task<TopicResponseDto?> GetTopicAsync(Guid id, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+             TopicId topicId = TopicId.Of(id);
+
+             var topic = await dbContext.Topics.FindAsync([topicId], cancellationToken);
+
+             return topic == null || topic.IsDeleted ? throw new TopicNotFoundException(id) : (topic?.ToTopicResponseDto());       
         }
 
         public async Task<List<TopicResponseDto>> GetTopicsAsync(CancellationToken cancellationToken)
         {
-            try
-            {
-                var topics = await dbContext.Topics
+            var topics = await dbContext.Topics
                     .AsNoTracking()
+                    .Where(t => !t.IsDeleted)
                     .ToListAsync(cancellationToken);
 
-                return topics.ToTopicResponseDtoList();
-            }
-            catch (OperationCanceledException)
-            {
-                logger.LogInformation("GetTopicsAsync - the operation was cancelled by the client");
-                return [];
-            }
-            catch (Exception ex)
-            {
-                logger.LogError($"GetTopicsAsync - operation error: {ex}");
-                return [];
-            }
-            finally
-            {
-                logger.LogInformation("GetTopicsAsync - operation completed");
-            }
+            return topics.ToTopicResponseDtoList();
         }
 
-        public Task<TopicResponseDto> UpdateTopicAsync(Guid id, Topic topicRequestDto)
+        public async Task<TopicResponseDto> UpdateTopicAsync(Guid id, UpdateTopicDto updateTopictDto, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            TopicId topicId = TopicId.Of(id);
+
+            var topic = await dbContext.Topics.FindAsync([topicId], cancellationToken);
+
+            if(topic is null || topic.IsDeleted) throw new TopicNotFoundException(id);
+
+            topic.Title = updateTopictDto.Title ?? topic.Title;
+            topic.Summary = updateTopictDto.Summary ?? topic.Summary;
+            topic.TopicType = updateTopictDto.TopicType ?? topic.TopicType;
+            topic.EventStart = updateTopictDto.EventStart;
+            topic.Location = Location.Of(
+                updateTopictDto.Location.Country,
+                updateTopictDto.Location.City,
+                updateTopictDto.Location.Street
+            );
+
+            await dbContext.SaveChangesAsync(CancellationToken.None);
+
+            return topic.ToTopicResponseDto();
         }
     }
 }
