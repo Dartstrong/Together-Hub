@@ -22,6 +22,11 @@ namespace Api
                 });
             });
 
+            services.AddMediatR(config => config
+                .RegisterServicesFromAssembly(typeof(GetTopicsHandler).Assembly));
+
+            services.AddAutoMapper(typeof(MappingProfile).Assembly);
+
             return services;
         }
 

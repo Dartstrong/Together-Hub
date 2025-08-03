@@ -1,7 +1,7 @@
 ﻿using Application.Data.DataBaseContext;
 using Microsoft.Extensions.Logging;
 
-namespace Application.Topics
+namespace Application.Topics.Old
 {
     public class TopicsService(IApplicationDbContext dbContext,
         ILogger<TopicsService> logger) : ITopicsService

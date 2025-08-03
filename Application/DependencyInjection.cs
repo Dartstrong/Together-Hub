@@ -1,4 +1,4 @@
-﻿using Application.Topics;
+﻿using Application.Topics.Old;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application

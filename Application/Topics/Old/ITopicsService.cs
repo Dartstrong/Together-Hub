@@ -1,5 +1,6 @@
-﻿namespace Application.Topics
+﻿namespace Application.Topics.Old
 {
+   [Obsolete("This service is out of date", false)]
    public interface ITopicsService
    {
         Task<List<TopicResponseDto>> GetTopicsAsync(CancellationToken cancellationToken);

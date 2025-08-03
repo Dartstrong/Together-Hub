@@ -26,7 +26,7 @@ namespace Domain.Models
             };
 
             return topic;
-        }    
+        }
     }
 }
 
