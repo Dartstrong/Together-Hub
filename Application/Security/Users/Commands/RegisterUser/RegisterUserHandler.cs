@@ -1,9 +1,8 @@
-﻿using Application.Security.Extensions;
+﻿using Application.Security.Exceptions;
+using Application.Security.Extensions;
 using Application.Security.Services;
 using AutoMapper;
 using Domain.Security;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 
 namespace Application.Security.Users.Commands.RegisterUser
@@ -15,15 +14,15 @@ namespace Application.Security.Users.Commands.RegisterUser
         public async Task<RegisterUserResult> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
 
-            if (await manager.Users.AnyAsync(u => u.UserName == request.RegisterUserRequestDto.Username, cancellationToken: cancellationToken)) throw new Exception("Email is busy");
+            if (await manager.Users.AnyAsync(u => u.UserName == request.RegisterUserRequestDto.Username, cancellationToken: cancellationToken)) throw new NotValidUsernameException(request.RegisterUserRequestDto.Username);
 
-            if (await manager.Users.AnyAsync(u => u.Email == request.RegisterUserRequestDto.Email, cancellationToken: cancellationToken)) throw new Exception("Email is busy");
+            if (await manager.Users.AnyAsync(u => u.Email == request.RegisterUserRequestDto.Email, cancellationToken: cancellationToken)) throw new NotValidEmailException(request.RegisterUserRequestDto.Email);
 
             var user = mapper.Map<CustomIdentityUser>(request.RegisterUserRequestDto);
 
             var result = await manager.CreateAsync(user, request.RegisterUserRequestDto.Password!);
 
-            return result.Succeeded ? new RegisterUserResult (user.ToIdentityUserResponseDto(jwtSecurityService)) : (RegisterUserResult)Results.BadRequest(result.Errors);
+            return result.Succeeded ? new RegisterUserResult (user.ToIdentityUserResponseDto(jwtSecurityService)) : throw new Exception(result.Errors.ToString());
         }
     }
 }

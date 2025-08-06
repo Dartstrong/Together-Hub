@@ -1,4 +1,5 @@
 ﻿using Application.Exceptions;
+using Application.Security.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,6 +32,27 @@ namespace Api.Exceptions.Handler
                     exception.Message,
                     exception.GetType().Name,
                     httpContext.Response.StatusCode = StatusCodes.Status404NotFound
+                ),
+
+                NotValidUsernameException =>
+                (
+                    exception.Message,
+                    exception.GetType().Name,
+                    httpContext.Response.StatusCode = StatusCodes.Status400BadRequest
+                ),
+
+                NotValidPassException =>
+                (
+                    exception.Message,
+                    exception.GetType().Name,
+                    httpContext.Response.StatusCode = StatusCodes.Status400BadRequest
+                ),
+
+                NotValidEmailException =>
+                (
+                    exception.Message,
+                    exception.GetType().Name,
+                    httpContext.Response.StatusCode = StatusCodes.Status400BadRequest
                 ),
 
                 _ =>
