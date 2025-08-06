@@ -1,4 +1,5 @@
-﻿using Application.Topics.Commands.UpdateTopic;
+﻿using Application.Dtos.Topics;
+using Application.Topics.Commands.UpdateTopic;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers

@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using Application.Dtos.Topics;
+using Application.Security.Dtos;
+using AutoMapper;
+using Domain.Security;
 
 namespace Application.Mapping
 {
@@ -21,6 +24,9 @@ namespace Application.Mapping
                    src.Location.Street
                )))
                .ForMember(dest => dest.Id, opt => opt.MapFrom(_ => TopicId.Of(Guid.NewGuid())));
+
+            CreateMap<RegisterUserRequestDto, CustomIdentityUser>()
+                .ForMember(dest => dest.About, opt => opt.MapFrom( src => String.Empty));
         }
     }
 }

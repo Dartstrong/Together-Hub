@@ -1,4 +1,6 @@
-﻿namespace Application.Topics.Old
+﻿using Application.Dtos.Topics;
+
+namespace Application.Topics.Old
 {
    [Obsolete("This service is out of date", false)]
    public interface ITopicsService

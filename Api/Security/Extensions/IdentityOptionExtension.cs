@@ -1,4 +1,4 @@
-﻿using Api.Security.Services;
+﻿using Application.Security.Services;
 using Domain.Security;
 using Infrastructure.Data.DataBaseContext;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

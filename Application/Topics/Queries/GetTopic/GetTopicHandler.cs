@@ -9,7 +9,7 @@
 
             var topic = await dbContext.Topics.FindAsync([topicId], cancellationToken);
 
-            return new GetTopicResult(topic == null || topic.IsDeleted ? throw new TopicNotFoundException(request.Id) : (topic.ToTopicResponseDto()));
+            return new GetTopicResult(topic == null || topic.IsDeleted ? throw new TopicNotFoundException(request.Id) : topic.ToTopicResponseDto());
         }
     }
 }

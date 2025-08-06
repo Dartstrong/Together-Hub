@@ -1,16 +1,16 @@
-﻿using Api.Security.Services;
+﻿using Application.Security.Dtos;
+using Application.Security.Services;
+using Application.Security.Users.Commands.RegisterUser;
 using Domain.Security;
-using Domain.Security.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Api.Controllers
 {
     [AllowAnonymous]
     [Route("api/[controller]")]
-    public class AuthController(UserManager<CustomIdentityUser> manager, IJwtSecurityService jwtSecurityService) : ControllerBase
+    public class AuthController(IMediator mediator, UserManager<CustomIdentityUser> manager, IJwtSecurityService jwtSecurityService) : ControllerBase
     {
         [HttpPost("login")]
         public async Task<IResult> Login([FromBody] LoginRequestDto dto)
@@ -38,37 +38,10 @@ namespace Api.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IResult> Register([FromBody] RegisterUserRequestDto dto)
+        public async Task<IResult> Register([FromBody] RegisterUserRequestDto dto, CancellationToken cancellationToken)
         {
-            if (await manager.Users.AnyAsync(u => u.UserName == dto.Username))
-            {
-                return Results.BadRequest("Username is busy");
-            }
-
-            if (await manager.Users.AnyAsync(u => u.Email == dto.Email))
-            {
-                return Results.BadRequest("Email is busy");
-            }
-            var user = new CustomIdentityUser
-            {
-                FullName = dto.FullName,
-                Email = dto.Email,
-                UserName = dto.Username,
-                About = String.Empty
-            };
-
-            var result = await manager.CreateAsync(user, dto.Password!);
-
-            if (result.Succeeded)
-            {
-                var response = new IdentityUserResponseDto(
-                    user.UserName!,
-                    user.Email!,
-                    jwtSecurityService.CreateToken(user)
-                );
-                return Results.Ok(new { result = response });
-            }
-            return Results.BadRequest(result.Errors);
+            var response = await mediator.Send(new RegisterUserCommand(dto, cancellationToken), cancellationToken);
+            return Results.Created($"/login/", response.IdentityUserResponseDto);
         }
     }
 

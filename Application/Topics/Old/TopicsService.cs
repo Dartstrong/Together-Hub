@@ -1,4 +1,5 @@
 ﻿using Application.Data.DataBaseContext;
+using Application.Dtos.Topics;
 using Microsoft.Extensions.Logging;
 
 namespace Application.Topics.Old

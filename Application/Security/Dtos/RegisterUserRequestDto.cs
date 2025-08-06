@@ -1,4 +1,4 @@
-﻿namespace Domain.Security.Dtos
+﻿namespace Application.Security.Dtos
 {
     public record RegisterUserRequestDto
     (

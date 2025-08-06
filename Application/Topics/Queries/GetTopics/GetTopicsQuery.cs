@@ -1,4 +1,6 @@
-﻿namespace Application.Topics.Queries.GetTopics
+﻿using Application.Dtos.Topics;
+
+namespace Application.Topics.Queries.GetTopics
 {
     public record GetTopicsQuery(CancellationToken CancellationToken) : IQuery<GetTopicsResult>;
 
