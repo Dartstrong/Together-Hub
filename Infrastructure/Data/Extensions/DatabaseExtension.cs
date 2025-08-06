@@ -1,5 +1,7 @@
-﻿using Infrastructure.Data.DataBaseContext;
+﻿using Domain.Security;
+using Infrastructure.Data.DataBaseContext;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 
 namespace Infrastructure.Data.Extensions
 {
@@ -12,14 +14,30 @@ namespace Infrastructure.Data.Extensions
                 .ServiceProvider
                 .GetRequiredService<ApplicationDbContext>();
 
+            var manager = scope.
+                ServiceProvider.
+                GetRequiredService<UserManager<CustomIdentityUser>>();
+
             dbContext.Database.MigrateAsync().GetAwaiter().GetResult();
 
-            await SeedData(dbContext);
+            await SeedData(dbContext, manager);
         }
 
-        private static async Task SeedData(ApplicationDbContext dbContext)
+        private static async Task SeedData(ApplicationDbContext dbContext, UserManager<CustomIdentityUser> manager)
         {
             await SeedTopicsAsync(dbContext);
+            await SeedIdentityusersAsync(dbContext, manager);
+        }
+
+        private static async Task SeedIdentityusersAsync(ApplicationDbContext dbContext, UserManager<CustomIdentityUser> manager)
+        {
+            if (!manager.Users.Any())
+            {
+                foreach (var user in InitialData.IdentityUsers)
+                {
+                    await manager.CreateAsync(user, "1111");
+                }
+            }
         }
 
         private static async Task SeedTopicsAsync(ApplicationDbContext dbContext)

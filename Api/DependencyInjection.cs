@@ -1,4 +1,9 @@
 ﻿using Api.Exceptions.Handler;
+using Api.Security.Extensions;
+using Infrastructure.Data.Extensions;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using System.Threading.Tasks;
 
 namespace Api
 {
@@ -9,7 +14,13 @@ namespace Api
             IConfiguration configuration)
         {
             services.AddExceptionHandler<CustomExceptionHandler>();
-            services.AddControllers();
+            services.AddControllers(options =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
+                options.Filters.Add(new AuthorizeFilter(policy));
+            });
             services.AddOpenApi();
 
             services.AddCors(options =>
@@ -26,11 +37,11 @@ namespace Api
                 .RegisterServicesFromAssembly(typeof(GetTopicsHandler).Assembly));
 
             services.AddAutoMapper(typeof(MappingProfile).Assembly);
-
+            services.AddIdentityServices(configuration);
             return services;
         }
 
-        public static WebApplication UseApiServices(
+        public static async Task<WebApplication> UseApiServices(
             this WebApplication app)
         {
             app.UseCors("react-policy");
@@ -38,10 +49,12 @@ namespace Api
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
+                await app.InitializeDatabaseAsync();
             }
 
             app.UseExceptionHandler(options => { });
             app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();
 
