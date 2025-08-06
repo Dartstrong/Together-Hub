@@ -1,7 +1,6 @@
 ﻿using Application.Exceptions;
 using Application.Security.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Exceptions.Handler
 {
@@ -45,7 +44,7 @@ namespace Api.Exceptions.Handler
                 (
                     exception.Message,
                     exception.GetType().Name,
-                    httpContext.Response.StatusCode = StatusCodes.Status400BadRequest
+                    httpContext.Response.StatusCode = StatusCodes.Status401Unauthorized
                 ),
 
                 NotValidEmailException =>
