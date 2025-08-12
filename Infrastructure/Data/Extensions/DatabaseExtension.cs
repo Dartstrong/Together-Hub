@@ -18,7 +18,7 @@ namespace Infrastructure.Data.Extensions
                 ServiceProvider.
                 GetRequiredService<UserManager<CustomIdentityUser>>();
 
-            dbContext.Database.MigrateAsync().GetAwaiter().GetResult();
+            await dbContext.Database.MigrateAsync();
 
             await SeedData(dbContext, manager);
         }
@@ -26,10 +26,10 @@ namespace Infrastructure.Data.Extensions
         private static async Task SeedData(ApplicationDbContext dbContext, UserManager<CustomIdentityUser> manager)
         {
             await SeedTopicsAsync(dbContext);
-            await SeedIdentityusersAsync(dbContext, manager);
+            await SeedIdentityUsersAsync(dbContext, manager);
         }
 
-        private static async Task SeedIdentityusersAsync(ApplicationDbContext dbContext, UserManager<CustomIdentityUser> manager)
+        private static async Task SeedIdentityUsersAsync(ApplicationDbContext dbContext, UserManager<CustomIdentityUser> manager)
         {
             if (!manager.Users.Any())
             {

@@ -1,9 +1,7 @@
 ﻿using Api.Exceptions.Handler;
 using Api.Security.Extensions;
 using Infrastructure.Data.Extensions;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using System.Threading.Tasks;
 
 namespace Api
 {
