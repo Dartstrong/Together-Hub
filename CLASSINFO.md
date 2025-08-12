@@ -2,13 +2,13 @@
 
 ## Оглавление
 
-- [Слой Shared](#Слой-shared)
-- [Слой Domain](#Слой-domain)
-- [Слой Infrastructure](#Слой-infrastructure)
-- [Слой Application](#Слой-application)
-- [Слой API](#Слой-api)
+- [Слой Shared](#shared)
+- [Слой Domain](#domain)
+- [Слой Infrastructure](#infrastructure)
+- [Слой Application](#application)
+- [Слой API](#api)
 
-## Слой Shared <a name="Слой-shared"></a>
+## Слой Shared <a name="shared"></a>
 
 ### ICommand
 
@@ -34,7 +34,7 @@
 
 **Описание**: Глобально подключает библиотеку `MediatR`, позволяя использовать её без явного указания директивы using в каждом файле.
 
-## Слой Domain <a name="Слой-domain"></a>
+## Слой Domain <a name="domain"></a>
 
 ### Entity&lt;T&gt;
 
@@ -71,7 +71,7 @@
 
 **Описание**: Глобально подключает пространства имен `Domain.Abstractions`, `Domain.ValueObjects` и `Domain.Exceptions`, позволяя использовать их без явного указания директивы using в каждом файле.
 
-## Слой Infrastructure <a name="Слой-infrastructure "></a>
+## Слой Infrastructure <a name="infrastructure "></a>
 
 ### TopicIdConfiguration
 
@@ -119,7 +119,7 @@
 
 **Описание**: Глобально подключает пространства имен `Microsoft.EntityFrameworkCore`, `Domain.Model`, и другие, позволяя использовать их без явного указания директивы using в каждом файле.
 
-## Слой Application <a name="Слой-application  "></a>
+## Слой Application <a name="application  "></a>
 
 ### IApplicationDbContext
 
@@ -271,7 +271,7 @@
 - `GetTopicAsync`: Получение темы по ID.
 - `CreateTopicAsync`: Создание новой темы.
 - `UpdateTopicAsync`: Обновление темы.
-- `DeleteTopicAsync	`: Удаление темы.
+- `DeleteTopicAsync`: Удаление темы.
 
 ### TopicsService (устаревший)
 
@@ -282,7 +282,7 @@
 - `GetTopicAsync`: Получение темы по ID.
 - `CreateTopicAsync`: Создание новой темы.
 - `UpdateTopicAsync`: Обновление темы.
-- `DeleteTopicAsync	`: Удаление темы.
+- `DeleteTopicAsync`: Удаление темы.
 
 ### DependencyInjection
 
@@ -295,7 +295,7 @@
 
 **Описание**: Глобально подключает пространства имен `Application.Dtos`, `Application.Exceptions`, `Application.Extensions`, и другие, позволяя использовать их без явного указания директивы using в каждом файле.
 
-## Слой API <a name="Слой-api "></a>
+## Слой API <a name="api "></a>
 
 ### AuthController
 
