@@ -71,7 +71,7 @@
 
 **Описание**: Глобально подключает пространства имен `Domain.Abstractions`, `Domain.ValueObjects` и `Domain.Exceptions`, позволяя использовать их без явного указания директивы using в каждом файле.
 
-## Слой Infrastructure <a name="infrastructure "></a>
+## Слой Infrastructure <a name="infrastructure"></a>
 
 ### TopicIdConfiguration
 
@@ -119,7 +119,7 @@
 
 **Описание**: Глобально подключает пространства имен `Microsoft.EntityFrameworkCore`, `Domain.Model`, и другие, позволяя использовать их без явного указания директивы using в каждом файле.
 
-## Слой Application <a name="application  "></a>
+## Слой Application <a name="application"></a>
 
 ### IApplicationDbContext
 
@@ -295,7 +295,7 @@
 
 **Описание**: Глобально подключает пространства имен `Application.Dtos`, `Application.Exceptions`, `Application.Extensions`, и другие, позволяя использовать их без явного указания директивы using в каждом файле.
 
-## Слой API <a name="api "></a>
+## Слой API <a name="api"></a>
 
 ### AuthController
 
