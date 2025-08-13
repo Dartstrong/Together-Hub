@@ -1,6 +1,6 @@
-﻿using Application.Security.Services;
-using Domain.Security;
+﻿using Domain.Security;
 using Infrastructure.Data.DataBaseContext;
+using Infrastructure.Security.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;

@@ -5,13 +5,13 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Application.Security.Services
+namespace Infrastructure.Security.Services
 {
     public class JwtSecurityService(IConfiguration configuration) : IJwtSecurityService
     {
         public string CreateToken(CustomIdentityUser user)
         {
-            string secretKey = configuration["AuthSettings:SecretKey"];
+            string secretKey = configuration["AuthSettings:SecretKey"]!;
 
             var claims = new List<Claim>
             {

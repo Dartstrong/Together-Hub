@@ -9,7 +9,7 @@
 ## Изменения в проекте 
 
 - Dto модели, связанные с безопасность, перенесены из слоя Domain в слой Application
-- JwtSecurityService перенесен из слоя Api в слой Application
+- JwtSecurityService перенесен из слоя Api в слой Infrastructure
 - Добавлен mapping для RegisterUserRequestDto в CustomIdentityUser
 - Добавленные кастомные исключения (NotValidDataException, NotValidEmailException NotValidPassException, NotValidUsernameException) и их обработка в CustomExceptionHandler
 - Добавлено расширение CustomIdentityUserExtensions для преобразования IdentityUserExtensions в IdentityUserResponseDto

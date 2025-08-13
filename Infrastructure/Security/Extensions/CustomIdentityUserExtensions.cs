@@ -1,9 +1,8 @@
 ﻿using Application.Security.Dtos;
-using Application.Security.Services;
 using Domain.Security;
+using Infrastructure.Security.Services;
 
-
-namespace Application.Security.Extensions
+namespace Infrastructure.Security.Extensions
 {
     public static class CustomIdentityUserExtensions
     {

@@ -1,12 +1,10 @@
 ﻿using Application.Security.Exceptions;
-using Application.Security.Extensions;
-using Application.Security.Services;
 using Domain.Security;
 using Microsoft.AspNetCore.Identity;
 
 namespace Application.Security.Users.Queries.LoginUser
 { 
-    public class LoginUserHandler(UserManager<CustomIdentityUser> manager, IJwtSecurityService jwtSecurityService)
+    public class LoginUserHandler(UserManager<CustomIdentityUser> manager)
         : IQueryHandler<LoginUserQuery, LoginUserResult>
     {
 
@@ -16,7 +14,7 @@ namespace Application.Security.Users.Queries.LoginUser
 
             var result = await manager.CheckPasswordAsync(user, request.LoginRequestDto.Password);
 
-            return result ? new LoginUserResult(user.ToIdentityUserResponseDto(jwtSecurityService)) : throw new NotValidPassException();
+            return result ? new LoginUserResult(user) : throw new NotValidPassException();
         }
     }
 }
