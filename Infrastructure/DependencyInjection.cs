@@ -1,6 +1,5 @@
 ﻿using Application.Data.DataBaseContext;
 using Infrastructure.Data.DataBaseContext;
-using Infrastructure.Security.Services;
 using Microsoft.Extensions.Configuration;
 
 namespace Infrastructure
@@ -20,7 +19,6 @@ namespace Infrastructure
             });
 
             services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
-            services.AddScoped<IJwtSecurityService, JwtSecurityService>();
 
             return services;
         }

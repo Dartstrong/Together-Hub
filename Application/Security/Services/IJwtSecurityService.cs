@@ -1,6 +1,6 @@
 ﻿using Domain.Security;
 
-namespace Infrastructure.Security.Services
+namespace Application.Security.Services
 {
     public interface IJwtSecurityService
     {
