@@ -17,6 +17,37 @@ namespace Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.0");
 
+            modelBuilder.Entity("Domain.Models.Relationship", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTimeOffset>("DeleteAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("TopicReference")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserReference")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TopicReference");
+
+                    b.HasIndex("UserReference");
+
+                    b.ToTable("Relationships");
+                });
+
             modelBuilder.Entity("Domain.Models.Topic", b =>
                 {
                     b.Property<Guid>("Id")
@@ -248,6 +279,25 @@ namespace Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Models.Relationship", b =>
+                {
+                    b.HasOne("Domain.Models.Topic", "CurrentTopic")
+                        .WithMany("Users")
+                        .HasForeignKey("TopicReference")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Security.CustomIdentityUser", "CurrentUser")
+                        .WithMany("Topics")
+                        .HasForeignKey("UserReference")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CurrentTopic");
+
+                    b.Navigation("CurrentUser");
+                });
+
             modelBuilder.Entity("Domain.Models.Topic", b =>
                 {
                     b.OwnsOne("Domain.ValueObjects.Location", "Location", b1 =>
@@ -331,6 +381,16 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Models.Topic", b =>
+                {
+                    b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("Domain.Security.CustomIdentityUser", b =>
+                {
+                    b.Navigation("Topics");
                 });
 #pragma warning restore 612, 618
         }
