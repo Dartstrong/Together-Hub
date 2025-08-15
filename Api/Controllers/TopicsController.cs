@@ -1,5 +1,4 @@
-﻿using Application.Topics.Commands.UpdateTopic;
-using Microsoft.AspNetCore.Mvc;
+﻿using Application.Dtos.Topics;
 
 namespace Api.Controllers
 {
@@ -21,7 +20,7 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IResult> CreateTopic(CreateTopicDto createTopicDto, CancellationToken cancellationToken)
+        public async Task<IResult> CreateTopic([FromBody]CreateTopicDto createTopicDto, CancellationToken cancellationToken)
         {
             var response = await mediator.Send(new CreateTopicCommand(createTopicDto, cancellationToken), cancellationToken);
             return Results.Created($"/topics/{response.TopicResponseDto.Id}", response.TopicResponseDto);

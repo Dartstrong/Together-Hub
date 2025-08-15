@@ -1,4 +1,6 @@
-﻿namespace Application.Extensions
+﻿using Application.Dtos.Topics;
+
+namespace Application.Extensions
 {
     public static class TopicExtensions
     {

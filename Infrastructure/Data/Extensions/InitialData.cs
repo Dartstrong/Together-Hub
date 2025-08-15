@@ -1,4 +1,6 @@
-﻿namespace Infrastructure.Data.Extensions
+﻿using Domain.Security;
+
+namespace Infrastructure.Data.Extensions
 {
     public static class InitialData
     {
@@ -45,6 +47,37 @@
                     "Форум",
                     Location.Of("Россия",  "Курск", "Байкальская улица, 20")
                 )
+            };
+
+        public static IEnumerable<CustomIdentityUser> IdentityUsers =>
+            new List<CustomIdentityUser>()
+            {
+                new CustomIdentityUser
+                {
+                    Id = "20000000-0000-0000-0000-000000000001",
+                    UserName = "user1",
+                    Email = "user1@example.com",
+                    FullName = "Дмитрий Петров",
+                    About = "Обожаю готовить и пробовать новые рецепты"
+                },
+
+                new CustomIdentityUser
+                {
+                    Id = "20000000-0000-0000-0000-000000000002",
+                    UserName = "user2",
+                    Email = "user2@example.com",
+                    FullName = "Ольга Сидорова",
+                    About = "Интересуюсь программированием и искусственным интеллектом"
+                },
+
+                new CustomIdentityUser
+                {
+                    Id = "20000000-0000-0000-0000-000000000003",
+                    UserName = "user3",
+                    Email = "user3@example.com",
+                    FullName = "Иван Смирнов",
+                    About = "Занимаюсь спортом и веду активный образ жизни"
+                }
             };
     }
 }

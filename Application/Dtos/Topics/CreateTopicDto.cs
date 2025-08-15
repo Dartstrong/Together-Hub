@@ -1,4 +1,4 @@
-﻿namespace Application.Dtos
+﻿namespace Application.Dtos.Topics
 {
     public record CreateTopicDto(
         string Title,
