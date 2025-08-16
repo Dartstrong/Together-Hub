@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Infrastructure.Data.Configuration
+﻿namespace Infrastructure.Data.Configuration
 {
-    internal class RelationshipRoleConfiguration
+    public class RelationshipRoleConfiguration : IEntityTypeConfiguration<Relationship>
     {
+        public void Configure(EntityTypeBuilder<Relationship> builder)
+        {
+            builder.Property(item => item.Role)
+                .HasConversion<string>();
+        }
     }
 }

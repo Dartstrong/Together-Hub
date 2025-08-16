@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Infrastructure.Data.Configuration
+﻿namespace Infrastructure.Data.Configuration
 {
-    internal class RelationshipNavigationConfiguration
+    public class RelationshipNavigationConfiguration : IEntityTypeConfiguration<Relationship>
     {
+        public void Configure(EntityTypeBuilder<Relationship> builder)
+        {
+            builder.HasOne(r => r.CurrentTopic)
+                .WithMany(t => t.Users)
+                .HasForeignKey(r => r.TopicReference);
+
+            builder.HasOne(r => r.CurrentUser)
+                .WithMany(t => t.Topics)
+                .HasForeignKey(r => r.UserReference);
+        }
     }
 }
