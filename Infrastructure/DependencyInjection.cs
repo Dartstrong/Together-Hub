@@ -1,5 +1,7 @@
 ﻿using Application.Data.DataBaseContext;
+using Application.Security.Services;
 using Infrastructure.Data.DataBaseContext;
+using Infrastructure.Security.Services;
 using Microsoft.Extensions.Configuration;
 
 namespace Infrastructure
@@ -20,6 +22,8 @@ namespace Infrastructure
 
             services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
 
+            services.AddHttpContextAccessor();
+            services.AddScoped<IUserAccessor, UserAccessor>();
             return services;
         }
     }

@@ -18,7 +18,7 @@ namespace Domain.Models
             string userId,
             CustomIdentityUser user,
             ParticipantRole role,
-            TopicId topicID,
+            TopicId topicId,
             Topic topic)
         {
             ArgumentException.ThrowIfNullOrWhiteSpace(userId);
@@ -26,7 +26,7 @@ namespace Domain.Models
             return new Relationship
             {
                 Id = id,
-                TopicReference = topicID,
+                TopicReference = topicId,
                 CurrentTopic = topic,
                 UserReference = userId,
                 CurrentUser = user,

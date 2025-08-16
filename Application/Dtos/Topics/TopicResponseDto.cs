@@ -6,6 +6,7 @@
         string Summary,
         string TopicType,
         LocationDto Location,
-        DateTime? EventStart
+        DateTime? EventStart,
+        List<Relationship> Users
     );
 }

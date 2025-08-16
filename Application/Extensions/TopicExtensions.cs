@@ -16,7 +16,8 @@ namespace Application.Extensions
                     topic.Location.Country,
                     topic.Location.City,
                     topic.Location.Street),
-                EventStart: topic.EventStart
+                EventStart: topic.EventStart,
+                Users: topic.Users
                 );
         }
 
