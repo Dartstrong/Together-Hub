@@ -17,8 +17,14 @@ namespace Application.Extensions
                     topic.Location.City,
                     topic.Location.Street),
                 EventStart: topic.EventStart,
-                Users: topic.Users
-                );
+                Users: [.. topic.Users.Select(r => new UserProfileDto
+                (
+                    r.CurrentUser.Id,
+                    r.CurrentUser.UserName!,
+                    r.CurrentUser.FullName,
+                    r.Role.ToString()
+                ))]
+            );
         }
 
         public static List<TopicResponseDto> ToTopicResponseDtoList(
