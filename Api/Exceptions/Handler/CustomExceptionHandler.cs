@@ -54,6 +54,13 @@ namespace Api.Exceptions.Handler
                     httpContext.Response.StatusCode = StatusCodes.Status400BadRequest
                 ),
 
+                NotValidOrganizerException =>
+                (
+                    exception.Message,
+                    exception.GetType().Name,
+                    httpContext.Response.StatusCode = StatusCodes.Status400BadRequest
+                ),
+
                 _ =>
                 (
                     exception.Message,
