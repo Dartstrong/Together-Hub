@@ -12,8 +12,17 @@
             if (topic is null || topic.IsDeleted) throw new TopicNotFoundException(request.Id);
 
             topic.IsDeleted = true;
-            topic.DeleteAt = DateTimeOffset.UtcNow;
+            topic.DeletedAt = DateTimeOffset.UtcNow;
 
+            var relationships = await dbContext.Relationships
+                .Where(r => r.TopicReference == topicId)
+                .ToListAsync(cancellationToken);
+
+            foreach (var relationship in relationships)
+            {
+                relationship.IsDeleted = true;
+                relationship.DeletedAt = DateTimeOffset.UtcNow;
+            }
 
             await dbContext.SaveChangesAsync(cancellationToken);
 

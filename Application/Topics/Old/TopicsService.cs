@@ -35,7 +35,7 @@ namespace Application.Topics.Old
             if (topic is null || topic.IsDeleted) throw new TopicNotFoundException(id);
 
             topic.IsDeleted  = true;
-            topic.DeleteAt = DateTimeOffset.UtcNow;
+            topic.DeletedAt = DateTimeOffset.UtcNow;
 
             //dbContext.Topics.Remove(topic);
 
