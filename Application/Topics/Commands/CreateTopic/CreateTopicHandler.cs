@@ -1,4 +1,5 @@
 ﻿using Application.Security.Services;
+using Application.Topics.Extensions;
 using AutoMapper;
 using Domain.Enums;
 

@@ -1,5 +1,5 @@
-﻿using Application.Dtos.Topics;
-using Application.Security.Dtos;
+﻿using Application.Security.Dtos;
+using Application.Topics.Dtos;
 using AutoMapper;
 using Domain.Security;
 

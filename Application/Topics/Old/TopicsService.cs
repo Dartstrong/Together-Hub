@@ -1,4 +1,5 @@
-﻿using Application.Dtos.Topics;
+﻿using Application.Topics.Dtos;
+using Application.Topics.Extensions;
 using Microsoft.Extensions.Logging;
 
 namespace Application.Topics.Old

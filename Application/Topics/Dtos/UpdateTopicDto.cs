@@ -1,10 +1,10 @@
-﻿namespace Application.Dtos.Topics
+﻿namespace Application.Topics.Dtos
 {
-    public record CreateTopicDto(
+    public record UpdateTopicDto(
         string Title,
         string Summary,
         string TopicType,
         LocationDto Location,
-        DateTime? EventStart
+        DateTime EventStart
     );
 }

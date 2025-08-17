@@ -1,6 +1,6 @@
 ﻿using Domain.Enums;
 
-namespace Application.Dtos.Topics
+namespace Application.Topics.Dtos
 {
     public record RelationshipDto(
         RelationshipId Id,

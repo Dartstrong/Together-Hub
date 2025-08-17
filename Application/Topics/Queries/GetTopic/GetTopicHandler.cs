@@ -1,4 +1,6 @@
-﻿namespace Application.Topics.Queries.GetTopic
+﻿using Application.Topics.Extensions;
+
+namespace Application.Topics.Queries.GetTopic
 {
     public class GetTopicHandler(IApplicationDbContext dbContext)
         : IQueryHandler<GetTopicQuery, GetTopicResult>

@@ -1,5 +1,5 @@
-﻿using Application.Dtos.Topics;
-using Application.Topics.Commands.JoinLeaveTopic;
+﻿using Application.Topics.Commands.JoinLeaveTopic;
+using Application.Topics.Dtos;
 
 namespace Api.Controllers
 {
