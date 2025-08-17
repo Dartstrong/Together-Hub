@@ -1,4 +1,6 @@
-﻿namespace Application.Topics.Queries.GetTopics
+﻿using Application.Topics.Extensions;
+
+namespace Application.Topics.Queries.GetTopics
 {
     public class GetTopicsHandler(IApplicationDbContext dbContext)
         : IQueryHandler<GetTopicsQuery, GetTopicsResult>
@@ -7,6 +9,8 @@
         {
             var topics = await dbContext.Topics
                 .AsNoTracking()
+                .Include(t => t.Users)
+                .ThenInclude(r => r.CurrentUser)
                 .Where(t => !t.IsDeleted)
                 .ToListAsync(cancellationToken);
 

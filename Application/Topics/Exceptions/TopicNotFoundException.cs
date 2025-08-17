@@ -1,4 +1,4 @@
-﻿namespace Application.Exceptions
+﻿namespace Application.Topics.Exceptions
 {
     public class TopicNotFoundException : NotFoundException
     {

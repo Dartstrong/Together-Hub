@@ -1,5 +1,5 @@
-﻿using Application.Exceptions;
-using Application.Security.Exceptions;
+﻿using Application.Security.Exceptions;
+using Application.Topics.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 
 namespace Api.Exceptions.Handler
@@ -48,6 +48,13 @@ namespace Api.Exceptions.Handler
                 ),
 
                 NotValidEmailException =>
+                (
+                    exception.Message,
+                    exception.GetType().Name,
+                    httpContext.Response.StatusCode = StatusCodes.Status400BadRequest
+                ),
+
+                NotValidOrganizerException =>
                 (
                     exception.Message,
                     exception.GetType().Name,

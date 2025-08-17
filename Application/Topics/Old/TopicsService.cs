@@ -1,4 +1,5 @@
-﻿using Application.Dtos.Topics;
+﻿using Application.Topics.Dtos;
+using Application.Topics.Extensions;
 using Microsoft.Extensions.Logging;
 
 namespace Application.Topics.Old
@@ -35,7 +36,7 @@ namespace Application.Topics.Old
             if (topic is null || topic.IsDeleted) throw new TopicNotFoundException(id);
 
             topic.IsDeleted  = true;
-            topic.DeleteAt = DateTimeOffset.UtcNow;
+            topic.DeletedAt = DateTimeOffset.UtcNow;
 
             //dbContext.Topics.Remove(topic);
 

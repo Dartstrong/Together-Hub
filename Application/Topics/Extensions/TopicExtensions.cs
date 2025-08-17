@@ -1,6 +1,6 @@
-﻿using Application.Dtos.Topics;
+﻿using Application.Topics.Dtos;
 
-namespace Application.Extensions
+namespace Application.Topics.Extensions
 {
     public static class TopicExtensions
     {
@@ -16,8 +16,16 @@ namespace Application.Extensions
                     topic.Location.Country,
                     topic.Location.City,
                     topic.Location.Street),
-                EventStart: topic.EventStart
-                );
+                EventStart: topic.EventStart,
+                IsVoided : topic.IsVoided,
+                Users: [.. topic.Users.Select(r => new UserProfileDto
+                (
+                    r.CurrentUser.Id,
+                    r.CurrentUser.UserName!,
+                    r.CurrentUser.FullName,
+                    r.Role.ToString()
+                ))]
+            );
         }
 
         public static List<TopicResponseDto> ToTopicResponseDtoList(

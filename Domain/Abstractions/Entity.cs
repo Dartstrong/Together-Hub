@@ -5,7 +5,7 @@ namespace Domain.Abstractions
         public required T Id { get; set; }
 
         public bool IsDeleted { get; set; } = default!;
-        public DateTimeOffset DeleteAt { get; set; } = default!;
+        public DateTimeOffset DeletedAt { get; set; } = default!;
     }
 }
 

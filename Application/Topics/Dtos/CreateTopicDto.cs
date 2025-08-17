@@ -1,7 +1,6 @@
-﻿namespace Application.Dtos.Topics
+﻿namespace Application.Topics.Dtos
 {
-    public record TopicResponseDto (
-        Guid Id,
+    public record CreateTopicDto(
         string Title,
         string Summary,
         string TopicType,

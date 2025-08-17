@@ -50,6 +50,22 @@ namespace Api
                 await app.InitializeDatabaseAsync();
             }
 
+            app.UseStatusCodePages(async context =>
+            {
+                if (context.HttpContext.Response.StatusCode == 403)
+                {
+                    var details = new ProblemDetails
+                    {
+                        Title = "Forbidden",
+                        Detail = "Insufficient rights to perform this action",
+                        Status = StatusCodes.Status403Forbidden,
+                        Instance = context.HttpContext.Request.Path
+                    };
+                    details.Extensions.Add("traceId", context.HttpContext.TraceIdentifier);
+                    await context.HttpContext.Response.WriteAsJsonAsync(details);
+                }
+            });
+
             app.UseExceptionHandler(options => { });
             app.UseHttpsRedirection();
             app.UseAuthentication();
