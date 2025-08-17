@@ -57,7 +57,7 @@ namespace Application.Topics.Commands.JoinLeaveTopic
             var isSuccess = await dbContext.SaveChangesAsync(cancellationToken) > 0;
 
             return new JoinLeaveTopicResult(
-                $"Status changed:: {oldStatus} -> {topic.IsVoided}",
+                $"Status changed: {oldStatus} -> {topic.IsVoided}",
                 isSuccess
             );
         }

@@ -35,6 +35,7 @@ namespace Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Policy = "IsTopicAuthor")]
         public async Task<IResult> DeleteTopic(Guid id, CancellationToken cancellationToken)
         {
             return Results.Ok(await mediator.Send(new DeleteTopicCommand(id, cancellationToken), cancellationToken));
