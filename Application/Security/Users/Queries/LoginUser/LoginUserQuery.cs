@@ -1,5 +1,4 @@
 ﻿using Application.Security.Dtos;
-using Domain.Security;
 
 namespace Application.Security.Users.Queries.LoginUser
 {

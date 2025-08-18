@@ -1,6 +1,6 @@
 ﻿using Application.Comments.Dtos;
 
-namespace Application.Comments.Commands
+namespace Application.Comments.Commands.CreateComment
 {
     public record CreateCommentCommand(Guid TopicId, string Body) : ICommand<CreateCommentResult>;
 

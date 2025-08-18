@@ -4,7 +4,7 @@ using Application.Security.Exceptions;
 using Application.Security.Services;
 using AutoMapper;
 
-namespace Application.Comments.Commands
+namespace Application.Comments.Commands.CreateComment
 {
     public class CreateCommentHandler(IApplicationDbContext dbContext, IMapper mapper, IUserAccessor userAccessor)
         : ICommandHandler<CreateCommentCommand, CreateCommentResult>
