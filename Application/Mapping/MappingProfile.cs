@@ -1,4 +1,5 @@
-﻿using Application.Security.Dtos;
+﻿using Application.Comments.Dtos;
+using Application.Security.Dtos;
 using Application.Topics.Dtos;
 using AutoMapper;
 using Domain.Security;
@@ -37,6 +38,11 @@ namespace Application.Mapping
                 .ForMember(dest => dest.TopicReference, opt => opt.MapFrom(src => src.TopicReference))
                 .ForMember(dest => dest.UserReference, opt => opt.MapFrom(src => src.UserReference))
                 .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role));
+
+            CreateMap<Comment, CommentDto>()
+                .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.Author.UserName))
+                .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.Author.FullName))
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.Value));
 
         }
     }

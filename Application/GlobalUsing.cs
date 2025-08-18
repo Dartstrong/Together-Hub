@@ -5,3 +5,4 @@ global using Application.Topics.Extensions;
 global using Domain.ValueObjects;
 global using Application.Data.DataBaseContext;
 global using Shared.CQRS;
+global using AutoMapper;

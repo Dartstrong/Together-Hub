@@ -9,6 +9,7 @@ namespace Infrastructure.Data.DataBaseContext
     {
         public DbSet<Topic> Topics => Set<Topic>();
         public DbSet<Relationship> Relationships => Set<Relationship>();
+        public DbSet<Comment> Comments => Set<Comment>();
         public ApplicationDbContext(DbContextOptions options) : base(options) { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
