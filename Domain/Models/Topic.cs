@@ -9,6 +9,7 @@ namespace Domain.Models
         public Location Location { get; set; } = default!;
         public bool IsVoided { get; set; } = default!;
         public List<Relationship> Users { get; set; } =[];
+        public List<Comment> Comments { get; set; } = [];
         public static Topic Create(
             TopicId id, string title, DateTime? eventStart,
             string summary, string topicType, Location location)
